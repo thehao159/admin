@@ -1,0 +1,97 @@
+@charset "utf-8";
+/* CSS Document */
+.header{
+	width: 1000px;
+	margin: 0 0 0 150px;
+	border-bottom: 3px solid #dcdcdc;
+	height: 75px;
+	-moz-box-shadow: 0px 0px 8px #dcdcdc;
+	-webkit-box-shadow: 0px 0px 8px #dcdcdc;
+}
+.logo {
+	width: 250px;
+	height: 30px;
+	margin: 0 15px;
+	padding: 10px;
+}
+.logo img{
+	width: 250px;
+	height: 60px;
+}
+.inheader {
+	float: right;
+	margin: 0 15px;
+}
+.inheader a{
+	color: #000000;
+	text-decoration: none;
+}
+.inheader a:hover{
+	color: #ED9109
+}
+.content {
+	width: 1000px;
+	height: 500px;
+	margin: 0 0 0 150px;
+	position: relative;
+	border-left: 1px solid #dcdcdc;
+	border-right: 1px solid #dcdcdc;
+	border-bottom: 1px solid #dcdcdc;
+	-moz-box-shadow: 0px 0px 8px #dcdcdc;
+	-webkit-box-shadow: 0px 0px 8px #dcdcdc;
+}
+.home{
+	margin: 0 0 0 85px;
+}
+.home a, .home div{
+	width: 115px;
+	padding: 40px;
+	border: 3px solid #dcdcdc;
+	height: 120px;
+	float: left;
+	margin: 20px 0 10px 10px;
+	text-align: center;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-o-border-radius: 5px;
+}
+.home a{
+	text-decoration: none;
+}
+.home a:hover, .home div:hover{
+	color: #5b5b5b;
+}
+.home a:hover img, .home div:hover img{
+	opacity: 1;
+	color: #5b5b5b;
+	padding-top: 10px;
+}
+.home img {
+	opacity: 0.8;
+    -webkit-transition: padding-top 250ms ease-out;
+	-moz-transition: padding-top 250ms ease-out;
+	-o-transition: padding-top 250ms ease-out;
+}
+.incontent table{
+    padding: 0;
+    border: none;
+    border-collapse: collapse;
+    border: 2px solid #ddd;
+    width: 700px;
+    margin: 10px 0 0 5px;
+}
+.incontent table tr{
+	text-align: center;
+}
+.incontent table tr:nth-child(even) {
+  background:#f5f5f5;
+}
+.incontent{
+	padding: 10px;
+	float: left;
+}
+
+.products
+{
+	display: none;
+}
