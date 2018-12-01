@@ -1,4 +1,14 @@
-window.onload = function checklocalstorage()
+function setlocalstorage()
+{
+	window.localStorage.setItem("ListProductLocalStorage",JSON.stringify(list_products));
+}
+
+function getlocalstorage()
+{
+	return JSON.parse(window.localStorage.getItem("ListProductLocalStorage"));
+}
+
+window.onload = function checklocalstorage()//kiểm tra localstorage
 {
 	if (getlocalstorage() == null)
 	{
@@ -6,7 +16,7 @@ window.onload = function checklocalstorage()
 	}
 }
 
-function openproducts()
+function openproducts()//khi ấn vào sản phẩm mặc định là hiện hết sản phẩm
 {
 	document.getElementById("products").style.display="block";
 	var t = getlocalstorage();
@@ -21,9 +31,10 @@ function openproducts()
 	for (var i of t)
 	{
 		n++;
+		var temp= i.name.replace(/ /g,"-");
 		s += `<tr>
 				<td>`+n+`</td>
-				<td><a href="#">`+i.name+`<a></td>
+				<td><a href="https://hoangtran0410.github.io/DoAn_Web1/chitietsanpham.html?`+temp+`">`+i.name+`<a></td>
 				<td>`+i.price+`</td>
 				<td>&times</td>
 				<td>&Theta;</td>
@@ -32,7 +43,7 @@ function openproducts()
 	document.getElementById("the_lists").innerHTML = s;
 }
 
-function searchproducts(list,ten)
+function searchproducts(list,ten)//tìm theo tên
 {
 	var t = list;
 	var findedproducts = [];
@@ -46,7 +57,7 @@ function searchproducts(list,ten)
 	return findedproducts;
 }
 
-function checkproducts()
+function checkproducts()//đưa kết quả vào table
 {	
 	var t = getlocalstorage();
 	var ten = document.getElementById("search").value;
@@ -56,15 +67,16 @@ function checkproducts()
 				<td>Giá</td>
 				<td>Xóa</td>
 				<td>Sửa</td>
-			 </tr>	`;
+			 </tr>`;
 	var n = 0;
 	var l = searchproducts(t,ten);
 	for (var i of l)
 	{
 		n++;
+		var temp= i.name.replace(/ /g,"-");
 		s += `<tr>
 				<td>`+n+`</td>
-				<td><a href="#">`+i.name+`<a></td>
+				<td><a href="https://hoangtran0410.github.io/DoAn_Web1/chitietsanpham.html?`+temp+`">`+i.name+`<a></td>
 				<td>`+i.price+`</td>
 				<td>&times</td>
 				<td>&Theta;</td>
@@ -78,24 +90,15 @@ function checkproducts()
 	}
 }
 
-function closeproducts()
+function closeproducts()//nút tắt sản phẩm
 {
 	document.getElementById("products").style.display="none";
 }
 
 
 //Phần thêm xóa sửa
-function setlocalstorage()
+
+function add()
 {
-	window.localStorage.setItem("ListProductLocalStorage",JSON.stringify(list_products));
+
 }
-
-function getlocalstorage()
-{
-	return JSON.parse(window.localStorage.getItem("ListProductLocalStorage"));
-}
-
-// function add()
-// {
-
-// }
