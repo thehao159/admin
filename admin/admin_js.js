@@ -1,6 +1,6 @@
-function setlocalstorage()
+function setlocalstorage(a)
 {
-	window.localStorage.setItem("ListProductLocalStorage",JSON.stringify(list_products));
+	window.localStorage.setItem("ListProductLocalStorage",JSON.stringify(a));
 }
 
 function getlocalstorage()
@@ -12,7 +12,7 @@ window.onload = function checklocalstorage()//kiểm tra localstorage
 {
 	if (getlocalstorage() == null)
 	{
-		setlocalstorage();
+		setlocalstorage(list_products);
 	}
 }
 
@@ -36,7 +36,7 @@ function openproducts()//khi ấn vào sản phẩm mặc định là hiện h�
 				<td>`+n+`</td>
 				<td><a href="https://hoangtran0410.github.io/DoAn_Web1/chitietsanpham.html?`+temp+`">`+i.name+`<a></td>
 				<td>`+i.price+`</td>
-				<td>&times</td>
+				<td onclick="deleted('`+i.name+`')">&times</td>
 				<td>&Theta;</td>
 			 	</tr>`;
 	}
@@ -78,7 +78,7 @@ function checkproducts()//đưa kết quả vào table
 				<td>`+n+`</td>
 				<td><a href="https://hoangtran0410.github.io/DoAn_Web1/chitietsanpham.html?`+temp+`">`+i.name+`<a></td>
 				<td>`+i.price+`</td>
-				<td>&times</td>
+				<td onclick="deleted('`+i.name+`')">&times</td>
 				<td>&Theta;</td>
 			 </tr>`;
 	}
@@ -101,4 +101,19 @@ function closeproducts()//nút tắt sản phẩm
 function add()
 {
 
+}
+
+function deleted(ten)
+{
+	var t = getlocalstorage();
+	var deleted = [];
+	for (var i of t)
+	{
+		if(ten != i.name)
+		{
+			deleted.push(i);
+		}
+	}
+	setlocalstorage(deleted);
+	openproducts()
 }
