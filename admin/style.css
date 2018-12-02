@@ -101,3 +101,8 @@ tr {
 }
 
 tr:nth-of-type(even) {background-color: #f2f2f2;}
+
+.area_change
+{
+	display: none;
+}
