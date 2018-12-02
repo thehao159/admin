@@ -95,3 +95,9 @@
 {
 	display: none;
 }
+
+tr {
+	transition-duration: .3s; 
+}
+
+tr:nth-of-type(even) {background-color: #f2f2f2;}
