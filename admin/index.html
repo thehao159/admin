@@ -33,7 +33,7 @@
 		<div onclick="closeproducts()">&times</div>
 		<div>
 			<div style="float: left;">Thêm sản phẩm :</div>
-			<button style="float: left;">&#43;</button>
+			<button onclick="openadd()" style="float: left;">&#43;</button>
 			<p style="clear: both;float: left;margin: 5px;">Tìm kiếm : </p>
 			<input style="float: left;margin: 5px;" id="search" name="search" placeholder="Nhập tên sản phẩm..." onkeyup="checkproducts()">
 		</div>
@@ -54,6 +54,13 @@
 			
 		</div>
 		<div style="margin-left: 350px;" id="buttonchange"></div>
+	</div>
+
+	<div class="area_add" id="area_add">
+		<div onclick="backinadd()">Back</div>
+		<div id="add_product">
+			
+		</div>
 	</div>
 </body>
 </html>

@@ -2,6 +2,7 @@ function setlocalstorage(a) {
     window.localStorage.setItem("ListProductLocalStorage", JSON.stringify(a));
 }
 
+
 function getlocalstorage() {
     return JSON.parse(window.localStorage.getItem("ListProductLocalStorage"));
 }
@@ -37,6 +38,8 @@ function openproducts() //khi ấn vào sản phẩm mặc định là hiện h�
 			 	</tr>`;
     }
     document.getElementById("the_lists").innerHTML = s;
+    document.getElementById("area_change").style.display = "none";
+    document.getElementById("area_add").style.display = "none";
 }
 
 // function searchproducts(list,ten)//tìm theo tên
@@ -83,8 +86,114 @@ function closeproducts() //nút tắt sản phẩm
 
 //Phần thêm xóa sửa
 
-function add() {
+function backinadd()//nút back ở trong area_add
+{
+	document.getElementById("area_add").style.display = "none";
+	openproducts();
+}
 
+function openadd() 
+{
+	document.getElementById("area_add").style.display = "block";
+	document.getElementById("products").style.display = "none";
+	var s3=["","giamgia","tragop","giareonline","moiramat"];
+	var s=
+	`<b>Sản Phẩm cần thêm</b>
+	<div>Tên sản phẩm : <input id="addname" value=""></div>
+		<div>Hãng : 
+			<select id="addhang">`
+			var s1=["Apple","Samsung","Oppo","Nokia","Huawei","Xiaomi","Realme","Vivo","Philips","Mobell","Mobiistar","Itel","Coolpad","HTC","Motorola"];
+			for (var i=0;i<s1.length;i++)
+			{
+				s+=`<option value="`+s1[i]+`">`+s1[i]+`</option>`;
+			}
+		s+=`</select>
+		</div>
+		<div>Hình đại diện :<img id="addimg" src=" "><input id="asd" type="file" accept="image/*" onchange="loadFile2(event)">
+</div>
+		<div>Giá tiền : <input id="addprice" value=""></div>
+		<div>Số sao : <input id="addstar" value=""></div>
+		<div>Đánh giá : <input id="addrateCount" value=""></div>
+		<div>Khuyến mãi :
+			<div>Tên Khuyến mãi : 
+			<select id="addpromo_name">
+				<option value="`+s3[0]+`"></option>
+				<option value="`+s3[0]+`">Giảm giá</option>
+				<option value="`+s3[0]+`">Trả góp</option>
+				<option value="`+s3[0]+`">Giá rẻ Online</option>
+				<option value="`+s3[0]+`">Mới ra mắt</option>
+		</select>
+			<div>Thông tin khuyến mãi : <input id="addpromo_value" value=""></div>
+		</div>
+		<div><b>Thông số kỹ thuật</b></div>
+		<div>Màn hình : <input id="adddetail_screen" value=""></div>
+		<div>Hệ điều hành : <input id="adddetail_os" value=""></div>
+		<div>Camara sau : <input id="adddetail_camara" value=""></div>
+		<div>Camara trước : <input id="adddetail_camaraFront" value=""></div>
+		<div>CPU : <input id="adddetail_cpu" value=""></div>
+		<div>RAM : <input id="adddetail_ram" value=""></div>
+		<div>Bộ nhớ trong : <input id="adddetail_rom" value=""></div>
+		<div>Thẻ nhớ : <input id="adddetail_microUSB" value=""></div>
+		<div>Đánh Dung lượng pin : <input id="adddetail_battery" value=""></div>
+		<button onclick="them()">Thêm</button>`
+	document.getElementById("add_product").innerHTML = s;
+}
+
+function them()
+{
+	var ten = document.getElementById("addname");
+	var hang = document.getElementById("addhang");
+	var img = document.getElementById("addimg");
+	var price = document.getElementById("addprice");
+	var star = document.getElementById("addstar");
+	var rateCount = document.getElementById("addrateCount");
+	var promo_name = document.getElementById("addpromo_name");
+	var promo_value = document.getElementById("addpromo_value");
+	var detail_screen = document.getElementById("adddetail_screen");
+	var detail_os = document.getElementById("adddetail_os");
+	var detail_camara = document.getElementById("adddetail_camara");
+	var detail_camaraFront = document.getElementById("adddetail_camaraFront");
+	var detail_cpu = document.getElementById("adddetail_cpu");
+	var detail_ram = document.getElementById("adddetail_ram");
+	var detail_rom = document.getElementById("adddetail_rom");
+	var detail_microUSB = document.getElementById("adddetail_microUSB");
+	var detail_battery = document.getElementById("adddetail_battery");
+	var kiemtrathem = confirm("Bạn có chắc chắn muốn thêm ?");
+	if (kiemtrathem ==true)
+	{
+	if (check(ten,hang,img,price) != false)
+	{
+		var addproduct =
+		{
+			"name": ten.value,
+			"company": hang.value,
+			"img": img.src,
+			"price": price.value,
+			"star": star.value,
+			"rateCount": rateCount.value,
+			"promo": {
+				"name": promo_name.value,
+				"value": promo_value.value
+			},
+			"detail": {
+			"screen": detail_screen.value,
+			"os": detail_os.value,
+			"camara": detail_camara.value,
+			"camaraFront": detail_camaraFront.value,
+			"cpu": detail_cpu.value,
+			"ram": detail_ram.value,
+			"rom": detail_rom.value,
+			"microUSB": detail_microUSB.value,
+			"battery": detail_battery.value
+			}
+		};
+		var t = getlocalstorage();
+		t.push(addproduct);
+		setlocalstorage(t);
+		alert("Thêm thành công!");
+		openproducts();
+	}
+}
 }
 
 function deleted(ten) {
@@ -96,7 +205,8 @@ function deleted(ten) {
         }
     }
     setlocalstorage(deleted);
-    openproducts()
+    alert("Xóa thành công!");
+    openproducts();
 }
 
 function travesanphamtheoten(a)//trả về sp theo tên
@@ -183,7 +293,7 @@ function change(a) {
 	var s2 = "<b>Sửa thông tin sản phẩm</b>"
 	s2+=`<div>Tên sản phẩm : <input id="name" value="`+t.name+`"></div>
 		<div>Hãng : 
-			<select id="hang" id="company">`
+			<select id="hang">`
 			var s=["Apple","Samsung","Oppo","Nokia","Huawei","Xiaomi","Realme","Vivo","Philips","Mobell","Mobiistar","Itel","Coolpad","HTC","Motorola"];
 			for (var i=0;i<s.length;i++)
 			{
@@ -192,14 +302,14 @@ function change(a) {
 			}
 		s2+=`</select>
 		</div>
-		<div>Hình đại diện :<img id="img" src="`+t.img+`"><input id="asd" type="file" accept="image/*" onchange="loadFile(event)">
+		<div>Hình đại diện :<img id="img" src="`+t.img+`"><input id="asd" type="file" accept="image/*" onchange="loadFile1(event)">
 </div>
 		<div>Giá tiền : <input id="price" value="`+t.price+`"></div>
 		<div>Số sao : <input id="star" value="`+t.star+`"></div>
 		<div>Đánh giá : <input id="rateCount" value="`+t.rateCount+`"></div>
 		<div>Khuyến mãi :
 			<div>Tên Khuyến mãi : 
-			<select name="" id="promo_name">`
+			<select id="promo_name">`
 				if(t.promo.name==s3[0]) s2+=`<option selected="selected" value="`+s3[0]+`"></option>`;
 				else s2+=`<option value="`+s3[0]+`"></option>`;
 				if(t.promo.name==s3[1]) s2+=`<option selected="selected" value="`+s3[1]+`">Giảm Giá</option>`;
@@ -225,30 +335,30 @@ function change(a) {
 		<div>Đánh Dung lượng pin : <input id="detail_battery" value="`+t.detail.battery+`"></div>
 		<button onclick="sua('`+tenbandau+`')">Sửa</button>`
 		document.getElementById("change_product").innerHTML = s2;
-	}
+}
 
-	function sua(a)
-	{
-		var ten = document.getElementById("name");
-		var hang = document.getElementById("hang");
-		var img = document.getElementById("img");
-		var price = document.getElementById("price");
-		var star = document.getElementById("star");
-		var rateCount = document.getElementById("rateCount");
-		var promo_name = document.getElementById("promo_name");
-		var promo_value = document.getElementById("promo_value").value;
-		var detail_screen = document.getElementById("detail_screen");
-		var detail_os = document.getElementById("detail_os");
-		var detail_camara = document.getElementById("detail_camara");
-		var detail_camaraFront = document.getElementById("detail_camaraFront");
-		var detail_cpu = document.getElementById("detail_cpu");
-		var detail_ram = document.getElementById("detail_ram");
-		var detail_rom = document.getElementById("detail_rom");
-		var detail_microUSB = document.getElementById("detail_microUSB");
-		var detail_battery = document.getElementById("detail_battery");
+function sua(a)
+{
 		var kiemtrasua = confirm("Bạn có chắc chắn muốn sửa ?");
 		if(kiemtrasua==true)
 		{
+			var ten = document.getElementById("name");
+			var hang = document.getElementById("hang");
+			var img = document.getElementById("img");
+			var price = document.getElementById("price");
+			var star = document.getElementById("star");
+			var rateCount = document.getElementById("rateCount");
+			var promo_name = document.getElementById("promo_name");
+			var promo_value = document.getElementById("promo_value");
+			var detail_screen = document.getElementById("detail_screen");
+			var detail_os = document.getElementById("detail_os");
+			var detail_camara = document.getElementById("detail_camara");
+			var detail_camaraFront = document.getElementById("detail_camaraFront");
+			var detail_cpu = document.getElementById("detail_cpu");
+			var detail_ram = document.getElementById("detail_ram");
+			var detail_rom = document.getElementById("detail_rom");
+			var detail_microUSB = document.getElementById("detail_microUSB");
+			var detail_battery = document.getElementById("detail_battery");
 			if (check(ten,hang,img,price) != false)
 			{
 				var t = getlocalstorage();
@@ -284,8 +394,12 @@ function change(a) {
 		}
 	}
 
-var loadFile = function(event) {
+var loadFile1 = function(event) {
     var output = document.getElementById('img');
     output.src = URL.createObjectURL(event.target.files[0]);
-    
-  };
+}
+
+var loadFile2 = function(event) {
+    var output = document.getElementById('addimg');
+    output.src = URL.createObjectURL(event.target.files[0]);
+}
