@@ -1,9 +1,9 @@
-function setlocalstorage(a) {
+function setlocalstorage(a) {//tạo localstorage
     window.localStorage.setItem("ListProductLocalStorage", JSON.stringify(a));
 }
 
 
-function getlocalstorage() {
+function getlocalstorage() {//lấy localstorage
     return JSON.parse(window.localStorage.getItem("ListProductLocalStorage"));
 }
 
@@ -20,8 +20,10 @@ function openproducts() //khi ấn vào sản phẩm mặc định là hiện h�
     var t = getlocalstorage();
     var s = `<tr>
 				<td>STT</td>
-				<td>Tên</td>
-				<td>Giá</td>
+				<td>Mã sản phẩm</td>
+				<td>Ảnh</td>
+				<td>Tên sản phẩm</td>
+				<td>Giá tiền</td>
 				<td>Xóa</td>
 				<td>Sửa</td>
 			 </tr>	`;
@@ -31,10 +33,12 @@ function openproducts() //khi ấn vào sản phẩm mặc định là hiện h�
         var temp = i.name.replace(/ /g, "-");
         s += `<tr>
 				<td>` + n + `</td>
+				<td>`+i.masp+`</td>
+				<td><img src="`+i.img+`"></td>
 				<td><a target="blank" href="https://hoangtran0410.github.io/DoAn_Web1/chitietsanpham.html?` + temp + `">` + i.name + `<a></td>
 				<td>` + i.price + `</td>
-				<td onclick="deleted('` + i.name + `')">&times</td>
-				<td onclick="change('`+i.name+`')">&Theta;</td>
+				<td onclick="deleted('` + i.masp + `')">&times</td>
+				<td onclick="change('`+i.masp+`')">&Theta;</td>
 			 	</tr>`;
     }
     document.getElementById("the_lists").innerHTML = s;
@@ -56,13 +60,16 @@ function openproducts() //khi ấn vào sản phẩm mặc định là hiện h�
 // 	return findedproducts;
 // }
 // ctrl + alt + f => lam dep code js
-function checkproducts() //đưa kết quả vào table
+function checkproducts_name() //tìm kiếm tương đối theo tên và đưa kết quả vào table
 {
+    var id = document.getElementById("search_id");
     var laytr = document.getElementsByTagName("tr");
-    var input = document.getElementById("search").value;
+    var input = document.getElementById("search_name").value;
+    if (input != "") id.disabled = true;
+    if (input == "") id.disabled = false;
     for (var i = 1; i < laytr.length; i++) 
     {
-    	var td = laytr[i].getElementsByTagName("td")[1];
+    	var td = laytr[i].getElementsByTagName("td")[3];
         var tenSp = td.getElementsByTagName("a")[0].innerHTML;
 
         if (tenSp.toUpperCase().indexOf(input.toUpperCase()) == -1) {
@@ -71,6 +78,42 @@ function checkproducts() //đưa kết quả vào table
             laytr[i].style.zIndex = "-10"; // đưa ra sau
         }
         else {
+            laytr[i].style.lineHeight = "1";
+            laytr[i].style.opacity = "";
+            laytr[i].style.zIndex = "";
+        }
+    }
+}
+
+function checkproducts_id() //tìm kiếm tuyệt đối theo mã và đưa kết quả vào table
+{
+    var id = document.getElementById("search_id").value;
+    var laytr = document.getElementsByTagName("tr");
+    var input = document.getElementById("search_name");
+    if (id != "")
+    {
+    	input.disabled = true;
+    	for (var i = 1; i < laytr.length; i++) 
+    	{
+    		var td = laytr[i].getElementsByTagName("td")[1];
+        	var maSp = td.innerHTML;
+        	if (maSp != id) {
+            	laytr[i].style.lineHeight = "0"; // thu nho
+            	laytr[i].style.opacity = "0"; // làm mờ
+            	laytr[i].style.zIndex = "-10"; // đưa ra sau
+        	}
+       		else {
+            laytr[i].style.lineHeight = "1";
+            laytr[i].style.opacity = "";
+            laytr[i].style.zIndex = "";
+        	}
+        }
+    }
+    if (id == "")
+    {
+    	input.disabled = false;
+    	for (var i = 1; i < laytr.length; i++) 
+    	{
             laytr[i].style.lineHeight = "1";
             laytr[i].style.opacity = "";
             laytr[i].style.zIndex = "";
@@ -89,7 +132,18 @@ function closeproducts() //nút tắt sản phẩm
 function backinadd()//nút back ở trong area_add
 {
 	document.getElementById("area_add").style.display = "none";
-	openproducts();
+	document.getElementById("products").style.display="block";
+}
+
+function timkiemmalonnhat()
+{
+	var t = getlocalstorage();
+	var max=0;
+	for (var i of t)
+	{
+		if (i.masp > max) max=i.masp;
+	}
+	return max;
 }
 
 function openadd() 
@@ -97,8 +151,10 @@ function openadd()
 	document.getElementById("area_add").style.display = "block";
 	document.getElementById("products").style.display = "none";
 	var s3=["","giamgia","tragop","giareonline","moiramat"];
+	var masp = parseInt(timkiemmalonnhat())+1;
 	var s=
 	`<b>Sản Phẩm cần thêm</b>
+	<div>Mã sản phẩm : <input disabled="disabled" id="addmasp" value="`+masp+`"></div>
 	<div>Tên sản phẩm : <input id="addname" value=""></div>
 		<div>Hãng : 
 			<select id="addhang">`
@@ -109,7 +165,7 @@ function openadd()
 			}
 		s+=`</select>
 		</div>
-		<div>Hình đại diện :<img id="addimg" src=" "><input id="asd" type="file" accept="image/*" onchange="loadFile2(event)">
+		<div>Hình đại diện :<img id="addimg" src=""><input id="upload2" type="file" accept="image/*" onchange="loadFile2(event)">
 </div>
 		<div>Giá tiền : <input id="addprice" value=""></div>
 		<div>Số sao : <input id="addstar" value=""></div>
@@ -141,6 +197,7 @@ function openadd()
 
 function them()
 {
+	var masp = document.getElementById("addmasp");
 	var ten = document.getElementById("addname");
 	var hang = document.getElementById("addhang");
 	var img = document.getElementById("addimg");
@@ -161,7 +218,8 @@ function them()
 	var kiemtrathem = confirm("Bạn có chắc chắn muốn thêm ?");
 	if (kiemtrathem ==true)
 	{
-	if (check(ten,hang,img,price) != false)
+	console.log(img.src);
+	if (check(ten,img,price) != false)
 	{
 		var addproduct =
 		{
@@ -185,7 +243,8 @@ function them()
 			"rom": detail_rom.value,
 			"microUSB": detail_microUSB.value,
 			"battery": detail_battery.value
-			}
+			},
+			"masp": masp.value
 		};
 		var t = getlocalstorage();
 		t.push(addproduct);
@@ -196,25 +255,29 @@ function them()
 }
 }
 
-function deleted(ten) {
-    var t = getlocalstorage();
-    var deleted = [];
-    for (var i of t) {
-        if (ten != i.name) {
-            deleted.push(i);
-        }
+function deleted(masp) {
+    var l = confirm("Bạn có chắc chắn muốn xóa ?")
+    if (l==true)
+    {
+    	var t = getlocalstorage();
+    	var deleted = [];
+    	for (var i of t) {
+        	if (masp != i.masp) {
+            	deleted.push(i);
+        	}
+    	}
+    	setlocalstorage(deleted);
+    	alert("Xóa thành công!");
+    	openproducts();
     }
-    setlocalstorage(deleted);
-    alert("Xóa thành công!");
-    openproducts();
 }
 
-function travesanphamtheoten(a)//trả về sp theo tên
+function travesanphamtheomasp(masp)//trả về sp theo masp
 {
 	var list = getlocalstorage();
 	for (var i of list)
 	{
-		if (i.name == a)
+		if (i.masp == masp)
 		{
 			return i;
 		}
@@ -223,22 +286,16 @@ function travesanphamtheoten(a)//trả về sp theo tên
 
 function backinchange()//nút back ở trong area_change
 {
-	openproducts();
 	document.getElementById("area_change").style.display = "none";
+	document.getElementById("products").style.display = "block";
 }
 
-function check(ten,hang,img,gia)
+function check(ten,img,gia)
 {
 	if (ten.value == "")
 	{
 		alert("Bạn chưa nhập tên");
 		ten.focus();
-		return false;
-	}
-	if (hang.value == "")
-	{
-		alert("Bạn chưa chọn hãng");
-		hang.focus();
 		return false;
 	}
 	if (img.src == "")
@@ -247,21 +304,22 @@ function check(ten,hang,img,gia)
 		img.focus();
 		return false;
 	}
-	if (gia.value == "")
+	if (gia.value == "" || Number(gia.value) < 0 || isNaN(gia.value)==true)
 	{
-		alert("Bạn chưa nhập giá");
-		hang.focus();
+		alert("Giá không hợp lệ");
+		gia.focus();
 		return false;
 	}
 }
 
-function change(a) {
+function change(masp) {
 	document.getElementById("products").style.display = "none";
 	document.getElementById("area_change").style.display = "block";
 	var s3=["","giamgia","tragop","giareonline","moiramat"];
-	var t = travesanphamtheoten(a);
+	var t = travesanphamtheomasp(masp);
 	var s1 = "<b>Thông tin sản phẩm cần sửa</b>"
-	s1+=`<div>Tên sản phẩm : `+t.name+`</div>
+	s1+=`<div>Mã sản phẩm : `+t.masp+`</div>
+		<div>Tên sản phẩm : `+t.name+`</div>
 		<div>Hãng : `+t.company+`</div>
 		<div>Hình đại diện : <img src="`+t.img+`"></div>
 		<div>Giá tiền : `+t.price+`</div>
@@ -288,10 +346,10 @@ function change(a) {
 		<div>Thẻ nhớ : `+t.detail.microUSB+`</div>
 		<div>Đánh Dung lượng pin : `+t.detail.battery+`</div>`;
 	document.getElementById("info_product").innerHTML = s1;
-	var tenbandau = t.name;
 	
 	var s2 = "<b>Sửa thông tin sản phẩm</b>"
-	s2+=`<div>Tên sản phẩm : <input id="name" value="`+t.name+`"></div>
+	s2+=`<div>Mã sản phẩm : <input disabled="disabled" id="masp" value="`+t.masp+`"></div>
+		<div>Tên sản phẩm : <input id="name" value="`+t.name+`"></div>
 		<div>Hãng : 
 			<select id="hang">`
 			var s=["Apple","Samsung","Oppo","Nokia","Huawei","Xiaomi","Realme","Vivo","Philips","Mobell","Mobiistar","Itel","Coolpad","HTC","Motorola"];
@@ -302,7 +360,7 @@ function change(a) {
 			}
 		s2+=`</select>
 		</div>
-		<div>Hình đại diện :<img id="img" src="`+t.img+`"><input id="asd" type="file" accept="image/*" onchange="loadFile1(event)">
+		<div>Hình đại diện :<img id="img" src="`+t.img+`"><input id="upload1" type="file" accept="image/*" onchange="loadFile1(event)">
 </div>
 		<div>Giá tiền : <input id="price" value="`+t.price+`"></div>
 		<div>Số sao : <input id="star" value="`+t.star+`"></div>
@@ -333,15 +391,16 @@ function change(a) {
 		<div>Bộ nhớ trong : <input id="detail_rom" value="`+t.detail.rom+`"></div>
 		<div>Thẻ nhớ : <input id="detail_microUSB" value="`+t.detail.microUSB+`"></div>
 		<div>Đánh Dung lượng pin : <input id="detail_battery" value="`+t.detail.battery+`"></div>
-		<button onclick="sua('`+tenbandau+`')">Sửa</button>`
+		<button onclick="sua('`+t.masp+`')">Sửa</button>`
 		document.getElementById("change_product").innerHTML = s2;
 }
 
-function sua(a)
+function sua(masp)
 {
 		var kiemtrasua = confirm("Bạn có chắc chắn muốn sửa ?");
 		if(kiemtrasua==true)
 		{
+			var masp = document.getElementById("masp");
 			var ten = document.getElementById("name");
 			var hang = document.getElementById("hang");
 			var img = document.getElementById("img");
@@ -359,12 +418,12 @@ function sua(a)
 			var detail_rom = document.getElementById("detail_rom");
 			var detail_microUSB = document.getElementById("detail_microUSB");
 			var detail_battery = document.getElementById("detail_battery");
-			if (check(ten,hang,img,price) != false)
+			if (check(ten,img,price) != false)
 			{
 				var t = getlocalstorage();
 				for(var i of t)
 				{
-					if (i.name == a)
+					if (i.masp == masp)
 					{
 						break;
 					}

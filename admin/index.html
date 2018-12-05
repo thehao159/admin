@@ -34,8 +34,10 @@
 		<div>
 			<div style="float: left;">Thêm sản phẩm :</div>
 			<button onclick="openadd()" style="float: left;">&#43;</button>
-			<p style="clear: both;float: left;margin: 5px;">Tìm kiếm : </p>
-			<input style="float: left;margin: 5px;" id="search" name="search" placeholder="Nhập tên sản phẩm..." onkeyup="checkproducts()">
+			<p style="clear: both;float: left;margin: 5px;">Tìm kiếm theo tên sản phẩm : </p>
+			<input style="float: left;margin: 5px;" id="search_name" name="search_name" placeholder="Nhập tên sản phẩm..." onkeyup="checkproducts_name()">
+			<p style="clear: both;float: left;margin: 5px;">Tìm kiếm theo mã sản phẩm : </p>
+			<input style="float: left;margin: 5px;" id="search_id" name="search" placeholder="Nhập mã sản phẩm..." onkeyup="checkproducts_id()">
 		</div>
 		<table id="the_lists" style="clear: both;">
 		
