@@ -1,68 +1,62 @@
 <!doctype html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<title>Untitled Document</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<script type="text/javascript" src="admin_js.js"></script>
-	<script type="text/javascript" src="products.js"></script>
-</head>
-</head>
+   <head>
+      <meta charset="utf-8">
+      <title>Untitled Document</title>
 
-<body>
-	<div class="header">
-		<div class="logo"><a href="index.html"> <img src="img/logo.jpg"> </a></div>
-		<div class="inheader"> Xin chào Admin | <a href="#">Đăng xuất</a> </div>
-	</div>
-	
-	<div class="content">
-		<div class="home">
-		<a href="theloai.html"><img src="img/the-loai.png"><br>Thể loại</a>
-		</div>
-		<div class="home">
-		<div onclick="openproducts()"><img src="img/san-pham.png"><br>Sản phẩm</div>
-		</div>
-		<div class="home">
-		<a href="donhang.html"><img src="img/don-hang.png"><br>Đơn hàng</a>
-		</div>
-		<div class="home">
-		<a href="khachhang.html"><img src="img/khach-hang.jpg"><br>Khách hàng</a>
-		</div>
-	</div>
-	<div id="products" class="products">
-		<div onclick="closeproducts()">&times</div>
-		<div>
-			<div style="float: left;">Thêm sản phẩm :</div>
-			<button onclick="openadd()" style="float: left;">&#43;</button>
-			<p style="clear: both;float: left;margin: 5px;">Tìm kiếm theo tên sản phẩm : </p>
-			<input style="float: left;margin: 5px;" id="search_name" name="search_name" placeholder="Nhập tên sản phẩm..." onkeyup="checkproducts_name()">
-			<p style="clear: both;float: left;margin: 5px;">Tìm kiếm theo mã sản phẩm : </p>
-			<input style="float: left;margin: 5px;" id="search_id" name="search" placeholder="Nhập mã sản phẩm..." onkeyup="checkproducts_id()">
-		</div>
-		<table id="the_lists" style="clear: both;">
-		
+		<!-- Load font awesome icons -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+		 crossorigin="anonymous">
 
-		
-		
-			
-		</table>
-	</div>
-	<div class="area_change" id="area_change">
-		<div onclick="backinchange()">Back</div>
-		<div style="width: 50%;float: left;" id="info_product">
-			
-		</div>
-		<div style="width: 50%;float: left;" id="change_product">
-			
-		</div>
-		<div style="margin-left: 350px;" id="buttonchange"></div>
-	</div>
-
-	<div class="area_add" id="area_add">
-		<div onclick="backinadd()">Back</div>
-		<div id="add_product">
-			
-		</div>
-	</div>
-</body>
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <script type="text/javascript" src="admin_js.js"></script>
+      <script type="text/javascript" src="products.js"></script>
+   </head>
+   </head>
+   <body>
+      <div class="header">
+         <div class="logo"><a href="index.html"> <img src="img/logo.jpg"> </a></div>
+         <div class="inheader"> Xin chào Admin | <a href="#">Đăng xuất</a> </div>
+      </div>
+      <div class="content">
+         <div class="home">
+            <a href="theloai.html"><img src="img/the-loai.png"><br>Thể loại</a>
+         </div>
+         <div class="home">
+            <div onclick="openProducts()"><img src="img/san-pham.png"><br>Sản phẩm</div>
+         </div>
+         <div class="home">
+            <a href="donhang.html"><img src="img/don-hang.png"><br>Đơn hàng</a>
+         </div>
+         <div class="home">
+            <a href="khachhang.html"><img src="img/khach-hang.jpg"><br>Khách hàng</a>
+         </div>
+      </div>
+      <div id="products" class="products">
+         <div onclick="closeProducts()">&times</div>
+         <div>
+            <div style="float: left;">Thêm sản phẩm :</div>
+            <button onclick="openAdd()" style="float: left;">&#43;</button>
+            <p style="clear: both;float: left;margin: 5px;">Tìm kiếm theo tên sản phẩm : </p>
+            <input style="float: left;margin: 5px;" id="search_name" name="search_name" placeholder="Nhập tên sản phẩm..." onkeyup="checkProducts_Name()">
+            <p style="clear: both;float: left;margin: 5px;">Tìm kiếm theo mã sản phẩm : </p>
+            <input style="float: left;margin: 5px;" id="search_id" name="search" placeholder="Nhập mã sản phẩm..." onkeyup="checkProducts_Id()">
+         </div>
+         <table id="the_lists" style="clear: both;">
+         </table>
+      </div>
+      <div class="area_change" id="area_change">
+         <div onclick="backInChange()">Back</div>
+         <div style="width: 50%;float: left;" id="info_product">
+         </div>
+         <div style="width: 50%;float: left;" id="change_product">
+         </div>
+         <div style="margin-left: 350px;" id="buttonchange"></div>
+      </div>
+      <div class="area_add" id="area_add">
+         <div onclick="backInAdd()">Back</div>
+         <div id="add_product">
+         </div>
+      </div>
+   </body>
 </html>

@@ -1,10 +1,13 @@
 @charset "utf-8";
 /* CSS Document */
+section {
+    max-width: 1205px;
+    margin: 0 auto;
+}
 .header{
-	width: 1000px;
-	margin: 0 0 0 150px;
+	width: 100%;
 	border-bottom: 3px solid #dcdcdc;
-	height: 75px;
+	height: 80px;
 	-moz-box-shadow: 0px 0px 8px #dcdcdc;
 	-webkit-box-shadow: 0px 0px 8px #dcdcdc;
 }
@@ -20,19 +23,17 @@
 }
 .inheader {
 	float: right;
-	margin: 0 15px;
+	margin: 10px 15px;
 }
 .inheader a{
 	color: #000000;
 	text-decoration: none;
 }
 .inheader a:hover{
-	color: #ED9109
+	color: #ED9109;
 }
 .content {
-	width: 1000px;
-	height: 500px;
-	margin: 0 0 0 150px;
+	width: 100%;
 	position: relative;
 	border-left: 1px solid #dcdcdc;
 	border-right: 1px solid #dcdcdc;
@@ -41,15 +42,15 @@
 	-webkit-box-shadow: 0px 0px 8px #dcdcdc;
 }
 .home{
-	margin: 0 0 0 85px;
+	margin: 0 0 0 450px;
 }
 .home a, .home div{
-	width: 115px;
-	padding: 40px;
+	width: 120px;
+	padding: 10px;
 	border: 3px solid #dcdcdc;
-	height: 120px;
+	height: 50px;
 	float: left;
-	margin: 20px 0 10px 10px;
+	margin: 10px 0 10px 10px;
 	text-align: center;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -58,50 +59,134 @@
 .home a{
 	text-decoration: none;
 }
-.home a:hover, .home div:hover{
-	color: #5b5b5b;
-}
 .home a:hover img, .home div:hover img{
 	opacity: 1;
 	color: #5b5b5b;
-	padding-top: 10px;
+	padding-top: 9px;
 }
 .home img {
+	width: 40px;
+	height: 30px;
 	opacity: 0.8;
     -webkit-transition: padding-top 250ms ease-out;
 	-moz-transition: padding-top 250ms ease-out;
 	-o-transition: padding-top 250ms ease-out;
 }
-.incontent table{
-    padding: 0;
-    border: none;
-    border-collapse: collapse;
-    border: 2px solid #ddd;
-    width: 700px;
-    margin: 10px 0 0 5px;
+.close{
+	font-size: 30px;
+	margin: 0 0 0 1180px;
 }
-.incontent table tr{
-	text-align: center;
+.close img:hover{
+	width: 22px;
+	height: 22px;
 }
-.incontent table tr:nth-child(even) {
-  background:#f5f5f5;
-}
-.incontent{
-	padding: 10px;
-	float: left;
-}
-
 .products
 {
 	display: none;
+	padding: 5px;
+	float: left;
+	border: 2px solid #ddd;
+	border-collapse: collapse;
+	border: none;
+}
+.tuychon{
+	margin: 0 0 0 370px;
+}
+.tuychon-themsp{
+	float: right; 
+	font-size: 19px;
+	padding: 0 32px 5px;
+	font-weight: bold;
+}
+.tuychon-themsp button{
+	border: #000000 solid 1px;
+	border-radius: 10px;
+	font-size: 20px;
+	width: 40px;
+}
+.tuychon-themsp button:hover{
+	border: #EEBD19 solid 1px;
+	color: #FFFFFF;
+	background:  #EEBD19;
+}
+.tuychon-timkiem{
+	float: left; 
+	font-size: 19px;
+	font-weight: bold;
+}
+.tuychon-timkiem input{
+	border: 1.5px #000000 solid;
+}
+.sanpham{
+	font-size: 18px;
 }
 
-tr {
-	transition-duration: .3s; 
+.sanpham a{
+	text-decoration: none;
+	color: #000000;
+}
+.sanpham a:hover{
+	color: #FF0004;
+	padding-left: 10px;
+	transition: 0.3s;
+}
+.sanpham table{
+	width: 1205px;
+	border-collapse: collapse;
+	text-align: center;
+	clear: both;
+}
+.sanpham table tr td{
+	float: center;
+}
+.sanpham table tr:nth-child(even) {
+  background: #D9D9D9;
+}
+.suasp{
+	padding: 0 0 0 50px;
+}
+.spcansua{
+	width: 30%;
+	float: left;
+	margin-left: 110px;
+	border: #000000 1px solid;
+	padding: 10px 0 5px 20px;
+}
+.sua{
+	width: 35%;
+	float: right;
+	margin-right: 50px;
+	border: #000000 1px solid;
+	padding: 10px 190px 5px 20px;
+}
+.nutsua{
+	margin-left: 350px;
 }
 
-tr:nth-of-type(even) {background-color: #f2f2f2;}
+.test{
+	background: #BF7D1C;
+	font-size: 20px;
+}
+.test td{
+	font-weight: bold;
+	height: 40px;
+}
+.back{
+	margin: 100px 0 10px 110px;
+}
+.back img:hover{
+	width: 55px;
 
+}
+.button{
+	margin: 0 0 0 183px;
+}
+.them{
+	border: #000000 1px solid;
+	padding: 10px 0 5px 20px;
+	float: left;
+	margin: 0 200px;
+}
 .area_change
 {
 	display: none;
@@ -110,4 +195,28 @@ tr:nth-of-type(even) {background-color: #f2f2f2;}
 .area_add
 {
 	display: none;
+}
+.right{
+	
+}
+.input{
+	float: right;	
+}
+.inputthem{
+	margin: 0 5px 5px;
+}
+.nutxoa{
+	font-size: 30px;
+}
+.nutxoa img:hover{
+	width: 30px;
+	height: 25px;
+}
+
+.nutsuasp{
+	font-size: 30px;
+}
+.nutsuasp img:hover{
+	width: 30px;
+	height: 25px;
 }
