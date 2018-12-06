@@ -438,5 +438,6 @@ function stringToNum(str) {
 }
 
 function numToString(num) {
+    num = Number(num);
     return num.toLocaleString();
 }
